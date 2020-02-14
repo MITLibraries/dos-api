@@ -1,371 +1,595 @@
 {
-  "openapi" : "3.0.0",
-  "servers" : [ {
-    "description" : "This API documents the end points exposed by the Digital Object Store (DOS). The goal of DOS is to make digital objects accessible and discoverable by providing a robust, scalable, and integrated object store.",
-    "url" : "https://virtserver.swaggerhub.com/mit-libraries/dos/1.0.0"
-  } ],
-  "info" : {
-    "description" : "Digital Object Service API",
-    "version" : "1.0.0",
-    "title" : "MIT Libraries Digital Object Store API",
-    "contact" : {
-      "email" : "osmandin@mit.edu"
+  "openapi": "3.0.0",
+  "servers": [
+    {
+      "description": "This API documents the end points exposed by the Digital Object Store (DOS). The goal of DOS is to make digital objects accessible and discoverable by providing a robust, scalable, and integrated object store.",
+      "url": "https://virtserver.swaggerhub.com/mit-libraries/dos/1.0.0"
+    }
+  ],
+  "info": {
+    "description": "Digital Object Service API",
+    "version": "1.0.0",
+    "title": "MIT Libraries Digital Object Store API",
+    "contact": {
+      "email": "osmandin@mit.edu"
     },
-    "license" : {
-      "name" : "Apache 2.0",
-      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     }
   },
-  "tags" : [ {
-    "name" : "objects",
-    "description" : "Digital Objects Management"
-  }, {
-    "name" : "users",
-    "description" : "Application Users Management"
-  } ],
-  "paths" : {
-    "/user" : {
-      "get" : {
-        "tags" : [ "users" ],
-        "summary" : "Retrieves information about users.",
-        "operationId" : "searchUser",
-        "description" : "End point to retrieve information about users\n",
-        "parameters" : [ {
-          "in" : "query",
-          "name" : "oid",
-          "description" : "The identifier of the user",
-          "required" : true,
-          "schema" : {
-            "type" : "string"
+  "tags": [
+    {
+      "name": "objects",
+      "description": "Digital Objects Management"
+    },
+    {
+      "name": "files",
+      "description": "Digital Files Management"
+    },
+    {
+      "name": "users",
+      "description": "Application Users Management"
+    }
+  ],
+  "paths": {
+    "/user": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Retrieves information about users.",
+        "operationId": "searchUser",
+        "description": "End point to retrieve information about users\n",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "oid",
+            "description": "The identifier of the user",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
           }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "search results matching criteria",
-            "content" : {
-              "text/plain" : {
-                "schema" : {
-                  "type" : "string"
+        ],
+        "responses": {
+          "200": {
+            "description": "search results matching criteria",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
                 }
               }
             }
           },
-          "400" : {
-            "description" : "bad input parameter"
+          "400": {
+            "description": "bad input parameter"
           }
         }
       },
-      "post" : {
-        "tags" : [ "users" ],
-        "summary" : "Create a user in DOS.",
-        "description" : "This end point adds a new user to the system.",
-        "operationId" : "createUser",
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/User"
+      "post": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Create a user in DOS.",
+        "description": "This end point adds a new user to the system.",
+        "operationId": "createUser",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
               }
             }
           },
-          "description" : "User to add"
+          "description": "User to add"
         },
-        "responses" : {
-          "default" : {
-            "description" : "successful operation"
+        "responses": {
+          "default": {
+            "description": "successful operation"
           }
         }
       }
     },
-    "/user/{username}" : {
-      "get" : {
-        "tags" : [ "users" ],
-        "summary" : "Get a user by user name.",
-        "operationId" : "getUserByName",
-        "parameters" : [ {
-          "name" : "username",
-          "in" : "path",
-          "description" : "The name that needs to be fetched. Use user1 for testing.",
-          "required" : true,
-          "schema" : {
-            "type" : "string"
+    "/user/{username}": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Get a user by user name.",
+        "operationId": "getUserByName",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "The name that needs to be fetched. Use user1 for testing.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
           }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/User"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
                 }
               },
-              "application/xml" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/User"
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
                 }
               }
             }
           },
-          "400" : {
-            "description" : "Invalid username supplied"
+          "400": {
+            "description": "Invalid username supplied"
           },
-          "404" : {
-            "description" : "User not found"
+          "404": {
+            "description": "User not found"
           }
         }
       },
-      "put" : {
-        "tags" : [ "users" ],
-        "summary" : "Update an existing user in DOS.",
-        "description" : "This can only be done by the logged in user.",
-        "operationId" : "updateUser",
-        "parameters" : [ {
-          "name" : "username",
-          "in" : "path",
-          "description" : "name that need to be updated",
-          "required" : true,
-          "schema" : {
-            "type" : "string"
+      "put": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Update an existing user in DOS.",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "updateUser",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "name that need to be updated",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
           }
-        } ],
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/User"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
               }
             }
           },
-          "description" : "Updated user object",
-          "required" : true
+          "description": "Updated user object",
+          "required": true
         },
-        "responses" : {
-          "400" : {
-            "description" : "Invalid user supplied"
+        "responses": {
+          "400": {
+            "description": "Invalid user supplied"
           },
-          "404" : {
-            "description" : "User not found"
+          "404": {
+            "description": "User not found"
           }
         }
       },
-      "delete" : {
-        "tags" : [ "users" ],
-        "summary" : "Delete a user in DOS.",
-        "description" : "This can only be done by the logged in user.",
-        "operationId" : "deleteUser",
-        "parameters" : [ {
-          "name" : "username",
-          "in" : "path",
-          "description" : "The name that needs to be deleted",
-          "required" : true,
-          "schema" : {
-            "type" : "string"
+      "delete": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Delete a user in DOS.",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "deleteUser",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "The name that needs to be deleted",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
           }
-        } ],
-        "responses" : {
-          "400" : {
-            "description" : "Invalid username supplied"
+        ],
+        "responses": {
+          "200": {
+            "description": "User deleted"
           },
-          "404" : {
-            "description" : "User not found"
+          "400": {
+            "description": "Invalid username supplied"
+          },
+          "404": {
+            "description": "User not found"
           }
         }
       }
     },
-    "/object" : {
-      "get" : {
-        "tags" : [ "objects" ],
-        "summary" : "This end point retrieves information about the digital objects in DOS.",
-        "operationId" : "searchInventory",
-        "description" : "This end point retrieves digital objects by their identifier.\n",
-        "parameters" : [ {
-          "in" : "query",
-          "name" : "oid",
-          "description" : "The identifier of the digital object",
-          "required" : true,
-          "schema" : {
-            "type" : "string"
+    "/object": {
+      "get": {
+        "tags": [
+          "objects"
+        ],
+        "summary": "This end point retrieves information about the digital objects in DOS.",
+        "operationId": "searchInventory",
+        "description": "This end point retrieves digital objects by their identifier.",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "oid",
+            "description": "The identifier of the digital object",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
           }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "digital objects with file information",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/DigitalObject"
+        ],
+        "responses": {
+          "200": {
+            "description": "digital objects with file information",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DigitalObject"
                   }
                 }
               }
             }
           },
-          "400" : {
-            "description" : "bad input parameter"
+          "400": {
+            "description": "bad input parameter"
           }
         }
       },
-      "post" : {
-        "tags" : [ "objects" ],
-        "summary" : "Creates a digital object in the object store.",
-        "operationId" : "addInventory",
-        "description" : "This endpoint adds a digital object to the object store. A user calls this endpoint with location of files to ingest.",
-        "responses" : {
-          "201" : {
-            "description" : "item created"
+      "post": {
+        "tags": [
+          "objects"
+        ],
+        "summary": "Creates a digital object in the object store.",
+        "operationId": "addInventory",
+        "description": "This endpoint adds a digital object to the object store. A user calls this endpoint with location of files to ingest.",
+        "responses": {
+          "201": {
+            "description": "item created"
           },
-          "400" : {
-            "description" : "invalid input, object invalid"
+          "400": {
+            "description": "invalid input, object invalid"
           },
-          "409" : {
-            "description" : "an existing item already exists"
+          "409": {
+            "description": "an existing item already exists"
           }
         },
-        "requestBody" : {
-          "required" : true,
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "items" : {
-                  "$ref" : "#/components/schemas/IngestObject"
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "items": {
+                  "$ref": "#/components/schemas/IngestObject"
                 }
               }
             }
           },
-          "description" : "Object to add with relevant file related information"
+          "description": "Object to add with relevant file related information"
+        }
+      },
+      "patch": {
+        "tags": [
+          "objects"
+        ],
+        "summary": "Patch a digital object in the object store.",
+        "operationId": "editInventory",
+        "description": "This endpoint patches a digital object in the object store. A user calls this endpoint with the data to be patched to object.",
+        "responses": {
+          "200": {
+            "description": "item patched"
+          },
+          "400": {
+            "description": "invalid input, object invalid"
+          },
+          "404": {
+            "description": "object not found"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "items": {
+                  "$ref": "#/components/schemas/PatchObject"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "objects"
+        ],
+        "summary": "Delete an object in DOS.",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "deleteInventory",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "oid",
+            "description": "The identifier of the digital object",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "user deleted"
+          },
+          "400": {
+            "description": "bad input parameter"
+          },
+          "404": {
+            "description": "object not found"
+          }
+        }
+      }
+    },
+    "/file": {
+      "get": {
+        "tags": [
+          "files"
+        ],
+        "summary": "This end point retrieves digital files from DOS.",
+        "operationId": "searchFiles",
+        "description": "This end point retrieves digital files by their identifier.",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "oid",
+            "description": "The identifier of the digital file",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "digital file",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DigitalFile"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "bad input parameter"
+          }
         }
       }
     }
   },
-  "components" : {
-    "schemas" : {
-      "User" : {
-        "description" : "This schema corresponds to staff users who have permissions to modify digital objects. This schema is a work in progress, as user roles need to be incoroporated.",
-        "type" : "object",
-        "properties" : {
-          "id" : {
-            "type" : "integer",
-            "format" : "int64"
+  "components": {
+    "schemas": {
+      "User": {
+        "description": "This schema corresponds to staff users who have permissions to modify digital objects. This schema is a work in progress, as user roles need to be incoroporated.",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
           },
-          "username" : {
-            "type" : "string"
+          "username": {
+            "type": "string"
           },
-          "firstName" : {
-            "type" : "string"
+          "firstName": {
+            "type": "string"
           },
-          "lastName" : {
-            "type" : "string"
+          "lastName": {
+            "type": "string"
           },
-          "email" : {
-            "type" : "string"
+          "email": {
+            "type": "string"
           }
         }
       },
-      "IngestObject" : {
-        "description" : "This is a special schema object, created just for ingests from Dome.",
-        "type" : "object",
-        "required" : [ "title", "handle", "metadataUrl", "metadataRecordId", "bitstreamSourceUri" ],
-        "properties" : {
-          "title" : {
-            "type" : "string",
-            "description" : "The title of the digital ooject (tbd)",
-            "example" : "Sample File Name"
+      "IngestObject": {
+        "description": "This is a special schema object, created just for ingests from Dome.",
+        "type": "object",
+        "required": [
+          "title",
+          "handle",
+          "metadataSource",
+          "contentSource",
+          "bitstreamSourceUri"
+        ],
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "The title of the digital object",
+            "example": "Sample File Name"
           },
-          "handle" : {
-            "type" : "string",
-            "description" : "handle",
-            "format" : "uril",
-            "example" : "http://hdl.handle.net/1721.3/56023"
+          "handle": {
+            "type": "string",
+            "description": "handle",
+            "format": "uril",
+            "example": "http://hdl.handle.net/1721.3/56023"
           },
-          "metadataUrl" : {
-            "type" : "string",
-            "format" : "uri",
-            "example" : "https://emmastaff-lib.mit.edu:8089/sample",
-            "description" : "Refer to DigitalObject schema."
+          "metadataSource": {
+            "type": "string",
+            "example": "ARCHIVESSPACE",
+            "description": "Refer to DigitalObject schema."
           },
-          "metadataRecordId" : {
-            "type" : "string",
-            "example" : "aspace-e2299291",
-            "description" : "Refer to DigitalObject schema."
+          "contentSource": {
+            "type": "string",
+            "example": "DOME",
+            "description": "Refer to DigitalObject schema."
           },
-          "bitstreamSourceUri" : {
-            "type" : "string",
-            "example" : "https://dome.mit.edu/handle/1721.3/56023",
-            "description" : "URL from where the files will be ingested (to make things easy for ingest)"
+          "bitstreamSourceUri": {
+            "type": "string",
+            "example": "https://dome.mit.edu/handle/1721.3/56023",
+            "description": "URL from where the files will be ingested (to make things easy for ingest)"
           }
         }
       },
-      "DigitalObject" : {
-        "description" : "This schema corresponds to the Digital Object record (stored in the database). This schema links to the FileItem schema, as a Digital Object can have many bitstreams associated with it. A single intellectual entity (aka digital object) whose file(s) are stored in DOS and whose descriptive metadata is represented by a record in one of our source metadata systems (Aleph, ArchivesSpace, IRIS). Maps to pcdm:Object.",
-        "type" : "object",
-        "required" : [ "id", "title", "metadataUrl", "metadataRecordId", "handle" ],
-        "properties" : {
-          "id" : {
-            "type" : "string",
-            "format" : "uuid",
-            "example" : "yaler1ee-6c54-4b01-90e6-d701748f0851",
-            "description" : "The unique identifier of the digital object. Should be uniquely preserved."
+      "PatchObject": {
+        "description": "This is a patch object for updating digital object.",
+        "type": "object",
+        "required": [
+          "oid"
+        ],
+        "properties": {
+          "oid": {
+            "type": "string",
+            "format": "uuid",
+            "example": "yaler1ee-6c54-4b01-90e6-d701748f0851",
+            "description": "The unique identifier of the digital object. Should be uniquely preserved."
           },
-          "title" : {
-            "type" : "string",
-            "example" : "Sample File Name",
-            "description" : "The title of the digital object for reconciliation purposes (tbd)"
+          "title": {
+            "type": "string",
+            "description": "The title of the digital object",
+            "example": "Sample File Name"
           },
-          "metadataUrl" : {
-            "type" : "string",
-            "format" : "uri",
-            "example" : "https://emmastaff-lib.mit.edu:8089/sample",
-            "description" : "The URL for the metadata record in the source system of record for the Digital Object. Not guaranteed to be persistent."
+          "handle": {
+            "type": "string",
+            "description": "handle",
+            "format": "uril",
+            "example": "http://hdl.handle.net/1721.3/56023"
           },
-          "handle" : {
-            "type" : "string",
-            "format" : "uri",
-            "example" : "http://hdl.handle.net/1721.3/56023",
-            "description" : "The handle of the digital object (points to DOME for now)"
+          "metadataSource": {
+            "type": "string",
+            "example": "ARCHIVESSPACE",
+            "description": "Refer to DigitalObject schema."
           },
-          "metadataRecordId" : {
-            "type" : "string",
-            "example" : "aspace-e2299291",
-            "description" : "The system metadata record number for the record that describes the Digital Object in the source system of record. Should be an Aleph, ArchivesSpace, or IRIS record number."
+          "contentSource": {
+            "type": "string",
+            "example": "DOME",
+            "description": "Refer to DigitalObject schema."
           },
-          "bitstreams" : {
-            "description" : "Associated bitstreams of a digital object",
-            "$ref" : "#/components/schemas/FileItem"
+          "bitstreamSourceUri": {
+            "type": "string",
+            "example": "https://dome.mit.edu/handle/1721.3/56023",
+            "description": "URL from where the files will be ingested (to make things easy for ingest)"
           }
         }
       },
-      "FileItem" : {
-        "description" : "This schema corresponds to the actual bistreams (stored in S3). A sequence of binary data represented as a file and stored in DOS. Maps to pcdm:File.",
-        "type" : "object",
-        "required" : [ "id", "title", "path" ],
-        "properties" : {
-          "id" : {
-            "type" : "string",
-            "format" : "uuid",
-            "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
+      "DigitalObject": {
+        "description": "This schema corresponds to the Digital Object record (stored in the database). This schema links to the DigitalFile schema, as a Digital Object can have many bitstreams associated with it. A single intellectual entity (aka digital object) whose file(s) are stored in DOS and whose descriptive metadata is represented by a record in one of our source metadata systems (Aleph, ArchivesSpace, IRIS). Maps to pcdm:Object.",
+        "type": "object",
+        "required": [
+          "oid",
+          "title",
+          "handle",
+          "metadataSource",
+          "contentSource",
+          "files",
+          "dateCreated",
+          "dateUpdated"
+        ],
+        "properties": {
+          "oid": {
+            "type": "string",
+            "format": "uuid",
+            "example": "yaler1ee-6c54-4b01-90e6-d701748f0851",
+            "description": "The unique identifier of the digital object. Should be uniquely preserved."
           },
-          "title" : {
-            "type" : "string",
-            "example" : "Sample File Name",
-            "description" : "File name"
+          "title": {
+            "type": "string",
+            "example": "Sample File Name",
+            "description": "The title of the digital object for reconciliation purposes (tbd)"
           },
-          "path" : {
-            "type" : "string",
-            "description" : "bit stream path stored by DOS (S3)",
-            "format" : "uri",
-            "example" : "https://dome.mit.edu/handle/1721.3/56023"
+          "handle": {
+            "type": "string",
+            "format": "uri",
+            "example": "http://hdl.handle.net/1721.3/56023",
+            "description": "The handle of the digital object (points to DOME for now)"
           },
-          "checksum" : {
-            "type" : "string",
-            "example" : "8bcf0dc696fa521e1e256e3d81193e7f",
-            "description" : "The checksum of the file, to ensure content integrity"
+          "metadataSource": {
+            "type": "string",
+            "example": "ARCHIVESSPACE",
+            "description": "The metadata system of record for the Digital Object."
           },
-          "creationDate" : {
-            "type" : "string",
-            "format" : "date-time",
-            "example" : "2019-12-29T09:12:33.001Z"
+          "contentSource": {
+            "type": "string",
+            "example": "DOME",
+            "description": "The system from which the Digital Object's files were ingested."
+          },
+          "files": {
+            "description": "Associated bitstreams of a digital object",
+            "$ref": "#/components/schemas/DigitalFile"
+          },
+          "dateCreated": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2019-12-29T09:12:33.001Z"
+          },
+          "dateUpdated": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2019-12-29T09:12:33.001Z"
+          }
+        }
+      },
+      "DigitalFile": {
+        "description": "This schema corresponds to the actual bistreams (stored in S3). A sequence of binary data represented as a file and stored in DOS. Maps to pcdm:File.",
+        "type": "object",
+        "required": [
+          "oid",
+          "name",
+          "path",
+          "size",
+          "type",
+          "checksum",
+          "dateCreated",
+          "dateUpdated"
+        ],
+        "properties": {
+          "oid": {
+            "type": "string",
+            "format": "uuid",
+            "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+          },
+          "name": {
+            "type": "string",
+            "example": "Sample File Name",
+            "description": "File name"
+          },
+          "path": {
+            "type": "string",
+            "description": "bit stream path stored by DOS (S3)",
+            "format": "uri",
+            "example": "https://dome.mit.edu/handle/1721.3/56023"
+          },
+          "size": {
+            "type": "integer",
+            "description": "The size of the file in bytes",
+            "example": 12345
+          },
+          "type": {
+            "type": "string",
+            "description": "The MIME type of the file",
+            "example": "application/pdf"
+          },
+          "checksum": {
+            "type": "string",
+            "example": "8bcf0dc696fa521e1e256e3d81193e7f",
+            "description": "The checksum of the file, to ensure content integrity"
+          },
+          "dateCreated": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2019-12-29T09:12:33.001Z"
+          },
+          "dateUpdated": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2019-12-29T09:12:33.001Z"
           }
         }
       }
